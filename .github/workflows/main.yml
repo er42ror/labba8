@@ -1,0 +1,22 @@
+name: Run Tests
+on: [push]
+jobs:
+  test:
+    runs-on: windows-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v2
+      with:
+        dotnet-version: '6.0'
+      
+    - name: Restore dependencies
+      run: dotnet restore tsetlab2R
+
+    - name: Build
+      run: dotnet build --configuration Release tsetlab2R
+
+
+    - name: Run Tests
+      run: dotnet test --configuration Release --no-build tsetlab2R
